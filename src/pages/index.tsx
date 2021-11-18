@@ -1,9 +1,17 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Layout from '../components/Layout'
+import Table from '../components/Table'
+import Client from '../core/Client'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+  const clients = [
+    new Client('Claudia', 36, '1'),
+    new Client('Beto', 38, '2'),
+    new Client('Oliver', 5, '3'),
+    new Client('Popolo', 3, '4')
+  ]
   return (
     <div className={`
       flex h-screen justify-center items-center
@@ -11,7 +19,7 @@ export default function Home() {
       text-white
     `}>
         <Layout title="Simple Register">
-          <span>Content</span>
+          <Table clients={clients}></Table>
         </Layout>
     </div>
   )
