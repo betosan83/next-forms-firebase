@@ -1,4 +1,5 @@
 import Client from "../core/Client";
+import { IconEdit, IconTrash } from "./Icons";
 
 interface TableProps {
     clients: Client[]
@@ -12,6 +13,7 @@ export default function Table(props: TableProps) {
                 <th className="text-left p-4">ID</th>
                 <th className="text-left p-4">Name</th>
                 <th className="text-left p-4">Age</th>
+                <th className="p-4">Actions</th>
             </tr>
         )
     }
@@ -24,9 +26,31 @@ export default function Table(props: TableProps) {
                     <td className="text-left p-4">{client.id}</td>
                     <td className="text-left p-4">{client.name}</td>
                     <td className="text-left p-4">{client.age}</td>
+                    {renderActions(client)}
                 </tr>
             )
         })
+    }
+
+    function renderActions(client: Client) {
+        return (
+            <td className="flex">
+                <button className={`
+                    flex justify-center items-center
+                    text-green-600 rounded-full p-2 m-1
+                    hover:bg-purple-50
+                `}>
+                    {IconEdit}
+                </button>
+                <button className={`
+                    flex justify-center items-center
+                    text-red-500 rounded-full p-2 m-1
+                    hover:bg-purple-50
+                `}>
+                    {IconTrash}
+                </button>
+            </td>
+        )
     }
 
     return (
