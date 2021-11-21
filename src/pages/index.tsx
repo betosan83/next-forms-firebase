@@ -12,15 +12,25 @@ export default function Home() {
     new Client('Oliver', 5, '3'),
     new Client('Popolo', 3, '4')
   ]
+
+  function clientSelected(client: Client) {
+    console.log(client.name)
+  }
+  function clientDeleted(client: Client) {
+    console.log(client.name)
+  }
+
   return (
     <div className={`
       flex h-screen justify-center items-center
       bg-gradient-to-r from-purple-500 to to-blue-600
       text-white
     `}>
-        <Layout title="Simple Register">
-          <Table clients={clients}></Table>
-        </Layout>
+      <Layout title="Simple Register">
+        <Table clients={clients}
+          clientSelected={clientSelected}
+          clientDeleted={clientDeleted} />
+      </Layout>
     </div>
   )
 }
