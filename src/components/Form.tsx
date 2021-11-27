@@ -13,10 +13,10 @@ export default function Form(props: FormProps) {
     return (
         <div>
             {id ? (
-                <Input text="Id" readonly value={id}/>
+                <Input text="Id" readonly value={id} className="mb-5"/>
             ) : false}
-            <Input text="Name" value={name}/>
-            <Input text="Age" type="number" value={age}/>
+            <Input text="Name" value={name} valueChanged={setName} className="mb-5"/>
+            <Input text="Age" type="number" value={age} valueChanged={setAge}/>
         </div>
     )
 
