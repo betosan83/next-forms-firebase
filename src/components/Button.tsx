@@ -4,7 +4,7 @@ interface Buttonprops {
     children: any;
 }
 
-export default function Button(props) {
+export default function Button(props: Buttonprops) {
     const color = props.color ?? 'gray'
     return (
         <button className={`
