@@ -1,36 +1,45 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import ClientCollection from '../backend/db/ClientCollection'
 import Button from '../components/Button'
 import Form from '../components/Form'
 import Layout from '../components/Layout'
 import Table from '../components/Table'
 import Client from '../core/Client'
+import ClientRepository from '../core/ClientRepository'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+
+  const clientRepo: ClientRepository = new ClientCollection()
+
   const [client, setClient] = useState(Client.empty())
+  const [clients, setClients] = useState<Client[]>([])
   const [visible, setVisible] = useState<'table' | 'form'>('table')
 
-  const clients = [
-    new Client('Claudia', 36, '1'),
-    new Client('Beto', 38, '2'),
-    new Client('Oliver', 5, '3'),
-    new Client('Popolo', 3, '4')
-  ]
+  useEffect(findAll, [])
+
+  function findAll() {
+    clientRepo.findAll().then(clients => {
+      setClients(clients)
+      setVisible('table')
+    })
+  }
 
   function clientSelected(client: Client) {
     setClient(client)
     setVisible('form')
   }
 
-  function clientDeleted(client: Client) {
-    console.log(client.name)
+  async function clientDeleted(client: Client) {
+    await clientRepo.delete(client)
+    findAll()
   }
 
-  function saveClient(client: Client) {
-    console.log(client)
-    setVisible('table')
+  async function saveClient(client: Client) {
+    await clientRepo.save(client)
+    findAll()
   }
   function newClient() {
     setClient(Client.empty())
